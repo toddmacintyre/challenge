@@ -1,25 +1,30 @@
-<!doctype html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <title>SimpleDEA by [your-name]</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="exercise.css">
-  </head>
-  <body>
+<!DOCTYPE html>
+<html lang="en-US">
 
-    <!-- Content -->
+<head>
+  <meta charset="utf-8">
+  <title>SimpleDEA by Coral Silverman</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="css/exercise.css">
+</head>
 
-    <script src="csUtils.js"></script>
-    <script src="exercise.js"></script>
-    <script>
-      var cs = function(result) {
-        console.log(result);
-        window.setTimeout(function() {
-          csApi.getData(cs);
-        }, 3000);
-      };
-      csApi.getData(cs);
-    </script>
-  </body>
+<body>
+  <header class="header">
+    <section class="container container__base-padding">
+      <h1 class="page-heading">SimpleDEA</h1>
+      <button class="button move-right" id="expiredButton" type="button">Show only expired</button>
+    </section>
+  </header>
+
+  <main>
+    <section id="DEARecords" class="container container__base-padding">
+      <h2 class="text-center">Drug Enforcement Administration Licenses</h2>
+      <p id="message" class="message"></p>
+    </section>
+  </main>
+  <script src="js/csUtils.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/exercise.js"></script>
+</body>
+
 </html>
