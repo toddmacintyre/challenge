@@ -41,23 +41,11 @@ window.onload = function () {
             csApi.getData()
                 .then(results => {
                     this.isLoading = false;
-                    results
-                        .sort((d1, d2) => {
-                            let exp1 = new Date(d1.expiration_date);
-                            let exp2 = new Date(d2.expiration_date);
-                            if (exp1 > exp2) {
-                                return -1;
-                            }
-                            if (exp1 < exp2) {
-                                return 1;
-                            }
-                            return 0;
-                        }).slice(0, 30).forEach((i, index) => {
-                            this.data.push(i);
-                        })
-                    this.render(this.data);
-                })
-                .catch(e => {
+                    csApi.getData().then(results => {
+                        this.data = apiHelpers.getTopThirty(results);
+                        this.render(this.data);
+                    })
+                }).catch(e => {
                     this.isLoading = false;
                     let errorMessage = helpers.createErroMessage();
                     this.errorDiv.appendChild(errorMessage);
@@ -66,19 +54,22 @@ window.onload = function () {
                 });
         },
         filterExp: function () {
-            let data = this.data.filter(i => {
-                let today = new Date();
-                let exp = new Date(i.expiration_date);
-                if (exp.isSame(today)) {
-                    return i;
-                }
-            })
-            if (data.length) {
-                this.render(data);
-            }
+            this.isLoading = true;
+            this.render();
+            csApi.getData().then(results => {
+                this.isLoading = false;
+                this.data = apiHelpers.getExpiredToday(results);
+                this.render(this.data);
+            }).catch(e => {
+                this.isLoading = false;
+                let errorMessage = helpers.createErroMessage();
+                this.errorDiv.appendChild(errorMessage);
+                this.errorDiv.className = 'error-div';
+                this.render();
+            });
         },
         showAll: function () {
-            this.render(this.data);
+            this.getData();
         }
     }
     records.init();
