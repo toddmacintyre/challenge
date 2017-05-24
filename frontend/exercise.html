@@ -1,25 +1,31 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <title>SimpleDEA by [your-name]</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="exercise.css">
-  </head>
-  <body>
 
-    <!-- Content -->
+<head>
+  <meta charset="utf-8">
+  <title>SimpleDEA by Calvin Friedman</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="exercise.css">
+</head>
 
-    <script src="csUtils.js"></script>
-    <script src="exercise.js"></script>
-    <script>
-      var cs = function(result) {
-        console.log(result);
-        window.setTimeout(function() {
-          csApi.getData(cs);
-        }, 3000);
-      };
-      csApi.getData(cs);
-    </script>
-  </body>
+<body>
+
+  <div id="loader" class="loader"></div>
+
+  <div id="container" class="container">
+    <div class="nav">
+      <button id="exp" class="exp">Expired Today</button>
+      <button id="all" class="exp">See All</button>
+    </div>
+    <div id="error-div"></div>
+    <ul class="records" id="records-display">
+
+    </ul>
+  </div>
+
+  <script src="csUtils.js"></script>
+  <script src="helpers.js"></script>
+  <script src="exercise.js"></script>
+</body>
+
 </html>

@@ -1,26 +1,29 @@
-var csApi = (function  () {
+const csApi = (function () {
 
-  var api = {},
-      baseUrl = 'https://dea.staging.credsimple.com',
-      path = '/v1/clients_providers/'
-      token = '3ad6aef59ee542ec881c5bc6593ba9c3',
-      id = 20;
+    const api = {};
+    const baseUrl = 'https://dea.staging.credsimple.com';
+    const path = '/v1/clients_providers/';
+    const token = '3ad6aef59ee542ec881c5bc6593ba9c3';
+    const id = 20;
 
-  api.getData = function(callback) {
-    requestUrl = baseUrl + path + id + '?token=' + token;
-    request = new XMLHttpRequest();
-    request.open('get', requestUrl, true);
-    request.onload = function(e) {
-      var response = request.response;
-      response = JSON.parse(response);
-      callback(response);
+    api.getData = function () {
+        return new Promise((resolve, reject) => {
+            let requestUrl = `${baseUrl}${path}${id}?token=${token}`;
+            let request = new XMLHttpRequest();
+            request.open('get', requestUrl, true);
+
+            request.onload = function () {
+                resolve(JSON.parse(request.response));
+            };
+            request.onerror = function (e) {
+                reject(e)
+            }
+
+            request.send();
+        });
+
     };
-    request.onerror = function(e) {
-      callback(request.response, e);
-    };
-    request.send();
-  };
 
-  return api;
+    return api;
 
 })();

@@ -1,1 +1,129 @@
-/* Styles */
+.container {
+    margin: auto;
+    width: 50%;
+    border: 2px solid silver;
+    border-radius: 5px;
+    padding: 20px;
+    background: teal;
+}
+
+.nav {
+    margin: auto;
+    width: 50%;
+    height: 50px;
+    background-color: teal; 
+    border: 2px solid white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.exp {
+    height: 90%;
+    background-color: white;
+    color: teal;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    margin-top: 2px;
+    letter-spacing: 1.5px;
+    border-radius: 5px;
+}
+
+.name-span {
+   letter-spacing: 1.5px;
+   line-height: 2px;
+   text-transform: uppercase;
+   color: teal;
+}
+
+.details-span {
+    letter-spacing: 1.5px;
+    color: teal;
+}
+
+.records {
+    text-align: center;
+    padding: 0;
+    font-family: "Comic Sans MS";
+}
+
+.records :hover {
+    cursor: pointer;
+}
+
+.loader {
+    position: absolute;
+    left: 49%;
+    top: 20%;
+    border: 16px solid #f3f3f3; 
+    border-top: 16px solid teal; 
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.line-item {
+    list-style-type: none;
+    height: 50px;
+    background-color: white;
+    border: 2px solid teal;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.epanded {
+    height: 200px;
+    transition-duration: 2s;
+    transition: height 0.5s linear;
+}
+
+.collapsed {
+    height: 50px;
+    transition-duration: 50ms;
+    transition: height 0.5s linear;
+}
+
+.visible {
+  opacity: 1;
+  height: 150px;
+  transition-duration: 2s;
+  transition: all 0.5s linear;
+}
+
+.hidden {
+  opacity: 0;
+  height: 0px;
+  transition-duration: 2s;
+  transition: all 0.5s linear;
+}
+
+.error-div {
+    height: 30px;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.error-msg {
+    letter-spacing: 1.5px;
+    color: white;
+}
+
+.toggle-button {
+    cursor: pointer;
+    color: teal;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+
+
+
+
+
