@@ -1,0 +1,17 @@
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+$failureColor: #E57373;
+$successColor: #66BB6A;
+
+.expired span:last-child {
+  color: $failureColor !important;
+}
+
+.valid span:last-child {
+  color: $successColor !important;
+}
+
+.itemCard {
+}

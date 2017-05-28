@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import csApi from './csUtils';
 import Records from './records';
+
 // const cs = function(result) {
 //   apiResults = result;
 //   window.setTimeout(function() {
@@ -9,8 +10,6 @@ import Records from './records';
 //   }, 5000 * 60);
 // };
 // csApi.getData(cs);
-
-// put this as app function. onComponentWillMount start it off. Update state on interval with new values.
 
 class App extends Component {
   constructor(props) {
@@ -31,6 +30,10 @@ class App extends Component {
     // this.getRecordAtInterval();
   }
 
+  componentDidUpdate() {
+    console.log(this.state.record);
+  }
+
   getRecordAtInterval() {
     setInterval(() => {csApi.getData(this.setRecord)}, 3000);
   }
@@ -43,6 +46,8 @@ class App extends Component {
     this.setState({record: newRecord});
     console.log('records set');
   }
+
+  // write function to filter only expired entries. Either filter them in this component, or pass down state and have each individual component decide whether or not to render.
 
   render() {
     return (
