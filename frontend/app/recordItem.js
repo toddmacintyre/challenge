@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import Toggle from 'material-ui/Toggle';
+
 
 class RecordItem extends Component {
   constructor(props) {
@@ -33,59 +33,45 @@ class RecordItem extends Component {
   render() {
     const { item, toggleExpand, anyExpanded } = this.props;
     const expired = this.state.expired;
+    const expiredClass = expired ? 'expired' : 'valid';
+    const expanded = this.state.expanded;
+    const expandedClass = expanded ? 'expanded' : 'collapsed';
+
+    const itemClass = `itemCard ${expiredClass} ${expandedClass}`
 
     return (
       <Card
-        className="itemCard"
+        className={itemClass}
         expanded={this.state.expanded}
         onExpandChange={this.handleExpandChange}
         onBlur={() => {
           setTimeout(() => {
             this.handleReduce();
-          }, 100);
+          }, 200);
         }}
       >
         <CardHeader
           title={item.name}
-          subtitle={expired ? 'Expired' : 'Valid'}
-          className={expired ? 'expired' : 'valid'}
+          subtitle={expiredClass.slice(0, 1).toUpperCase().concat(expiredClass.slice(1))}
           showExpandableButton={true}
         />
-        <CardText expandable={true}>
-          <div>
-            DEA number: {item.dea_number}
-          </div>
-          <div>
-            Expiration: {item.expiration_date}
-          </div>
-          <div>
-            NPI: {item.npi}
-          </div>
-          <div>
-            Provider ID: {item.provider_id}
-          </div>
-        </CardText>
+          <CardText expandable={true}>
+            <div>
+              DEA number: {item.dea_number}
+            </div>
+            <div>
+              Expiration: {item.expiration_date}
+            </div>
+            <div>
+              NPI: {item.npi}
+            </div>
+            <div>
+              Provider ID: {item.provider_id}
+            </div>
+          </CardText>
       </Card>
     );
   }
 };
 
 export default RecordItem;
-
-
-
-// dea_number
-// :
-// "MS2485818"
-// expiration_date
-// :
-// "2014-02-28"
-// name
-// :
-// "Dominick Savino"
-// npi
-// :
-// 1134364045
-// provider_id
-// :
-// 5601

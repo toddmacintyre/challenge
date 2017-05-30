@@ -3,19 +3,31 @@ import Paper from 'material-ui/Paper';
 import RecordItem from './recordItem';
 
 
-
 class Records extends Component {
   constructor(props) {
     super(props);
 
     this.style = {
-      width: 780,
-      margin: 'auto',
-      display: 'inline-block',
+      paperStyle: {
+        width: 780,
+        margin: 'auto',
+        display: 'inline-block',
+      },
+      flexDisplay: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+      },
+      loaderIMG: {
+        width: '5%',
+      }
     };
 
     this.state = {
       expanded: false,
+      tempText: '',
+      loaderURL: './assets/loader.gif',
+      loaderIMGWidth: {width: 50},
     }
 
     this.toggleExpand = this.toggleExpand.bind(this);
@@ -29,25 +41,29 @@ class Records extends Component {
     const { record } = this.props;
     let { globalKey } = this.props;
 
+    if (!record.length) {
+      setTimeout(() => {
+        this.setState({tempText: 'No Results Found...'});
+        this.setState({loaderIMGWidth: {width: 0}});
+      }, 3000)
+      return (
+        <div style={{margin: '40 auto', textAlign: 'center'}}>
+          <img style={Object.assign({}, this.style.loaderIMG, this.state.loaderIMGWidth)} src={this.state.loaderURL} className="loaderIMG" />
+          <span>{this.state.tempText}</span>
+        </div>
+      );
+    }
+
     return (
-      <Paper style={this.style} zDepth={3} rounded={false}>
-        {record.map(item => (
-          <RecordItem key={globalKey++} item={item} toggleExpand={this.toggleExpand} anyExpanded={this.state.expanded} />
-        ))}
-      </Paper>
+      <div style={this.style.flexDisplay}>
+        <Paper style={this.style.paperStyle} zDepth={3} rounded={false}>
+          {record.map(item => (
+            <RecordItem key={globalKey++} item={item} toggleExpand={this.toggleExpand} anyExpanded={this.state.expanded} />
+          ))}
+        </Paper>
+      </div>
     );
   }
 };
 
 export default Records;
-
-
-
-          // onTouchTap={(e) => {
-          //   this.setState({expanded: !this.state.expanded});
-          //   console.log(this.state.expanded);
-          // }}
-
-
-
-

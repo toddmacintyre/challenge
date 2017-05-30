@@ -3,13 +3,9 @@ import React, { Component } from 'react';
 import csApi from './csUtils';
 import Records from './records';
 
-// const cs = function(result) {
-//   apiResults = result;
-//   window.setTimeout(function() {
-//     csApi.getData(cs);
-//   }, 5000 * 60);
-// };
-// csApi.getData(cs);
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+
 
 class App extends Component {
   constructor(props) {
@@ -19,19 +15,16 @@ class App extends Component {
 
     this.state = {
       record: [],
+      filtered: false,
     }
 
     this.setRecord = this.setRecord.bind(this);
     this.getRecordAtInterval = this.getRecordAtInterval.bind(this);
+    this.filterExpiredToday = this.filterExpiredToday.bind(this);
   }
 
   componentWillMount() {
     csApi.getData(this.setRecord);
-    // this.getRecordAtInterval();
-  }
-
-  componentDidUpdate() {
-    console.log(this.state.record);
   }
 
   getRecordAtInterval() {
@@ -44,15 +37,46 @@ class App extends Component {
     })
     newRecord = newRecord.slice(0, 30);
     this.setState({record: newRecord});
-    console.log('records set');
   }
 
-  // write function to filter only expired entries. Either filter them in this component, or pass down state and have each individual component decide whether or not to render.
+  filterExpiredToday() {
+    if (!this.state.filtered) {
+      let currentDate = new Date;
+      const year = currentDate.getFullYear().toString();
+      let month = (currentDate.getMonth() + 1).toString();
+      if (month.length < 2) month = ('0').concat(month);
+      let day = currentDate.getDate().toString();
+      if (day.length < 2) day = ('0').concat(day);
+      currentDate = Date.parse(`${year}-${month}-${day}`);
+
+      const record = this.state.record.filter(val => {
+        return val.expiration_date === currentDate;
+      });
+
+      this.setState({record});
+      this.setState({filtered: !this.state.filtered});
+    } else {
+      csApi.getData(this.setRecord);
+      this.setState({filtered: !this.state.filtered})
+    }
+  }
 
   render() {
+    const filterText = this.state.filtered ? 'Remove Filter' : 'Filter Expired Today';
     return (
       <div>
-        <div>Records shown: {this.state.record.length}</div>
+        <AppBar
+          className="appBar"
+          title={<span>Simple DEA</span>}
+          iconElementRight={
+            <FlatButton
+              label={filterText}
+              onTouchTap={() => {
+                this.filterExpiredToday();
+              }}
+            />
+          }
+        />
         <Records record={this.state.record} globalKey={this.globalKey} />
       </div>
     );
